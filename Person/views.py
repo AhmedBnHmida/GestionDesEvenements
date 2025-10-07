@@ -26,12 +26,23 @@ def login_view(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
+            
             if user is not None:
                 login(request, user)
                 messages.success(request, f'Bienvenue {username}!')
-                return redirect('home')
+                
+                # REDIRECTION INTELLIGENTE
+                if user.is_superuser or user.is_staff:
+                    return redirect('/admin/')  # Admin vers l'interface admin
+                else:
+                    return redirect('home')     # Utilisateur normal vers l'accueil
+            else:
+                messages.error(request, 'Identifiants incorrects.')
+        else:
+            messages.error(request, 'Veuillez corriger les erreurs ci-dessous.')
     else:
         form = AuthenticationForm()
+    
     return render(request, 'login.html', {'form': form})
 
 def logout_view(request):
