@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+        <h1 class="display-4">🎯 GestionDesEvenements</h1>
+        <p class="lead">Application de gestion des événements</p>
+        
+        <div class="mt-5">
+            <h2>Bonjour 5TWIN</h2>
+            
+            {% if user.is_authenticated %}
+                <div class="alert alert-success mt-3">
+                    <h4>Vous êtes connecté en tant que <strong>{{ user.username }}</strong></h4>
+                    <p class="mb-0">
+                        <a href="{% url 'dynamic_interface' classe='5TWIN' %}" class="btn btn-primary">
+                            Accéder à l'interface dynamique
+                        </a>
+                    </p>
+                </div>
+            {% else %}
+                <div class="alert alert-info mt-3">
+                    <h4>Vous n'êtes pas connecté</h4>
+                    <p class="mb-0">
+                        <a href="{% url 'login' %}" class="btn btn-success">Se connecter</a>
+                        <a href="{% url 'register' %}" class="btn btn-outline-primary">Créer un compte</a>
+                    </p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
