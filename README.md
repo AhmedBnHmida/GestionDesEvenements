@@ -1,134 +1,150 @@
-🎯 GestionDesEvenements - Application de Gestion d'Événements
+# 🎯 GestionEvenement - Application de Gestion d'Événements  
+
 Une application web Django complète pour la gestion d'événements avec frontoffice et backoffice.
 
-📋 Description du Projet
-L'objectif de cet atelier est de développer une application web de gestion des évènements en utilisant le Framework Django pour les deux parties FrontOffice et BackOffice.
+---
 
-🏗️ Architecture
-Projet Django : GestionDesEvenements
+## 📋 Description du Projet  
+L'objectif de cet atelier est de développer une application web de **gestion des évènements** en utilisant le Framework Django.
 
-Applications :
+---
 
-Event - Gestion des événements
+## 🏗️ Architecture  
+- **Projet Django** : `Gestion Evenement`  
+- **Applications** :  
+  - `Event`  
+  - `Person`  
 
-Person - Gestion des utilisateurs et organisateurs
+---
 
-📊 Modèle de Données
+## 📊 Modèle de Données  
 Ce projet est basé sur le diagramme de classe d'analyse fourni.
 
-Event
-id - Identifiant unique
+### Event  
+- `id`  
+- `title`  
+- `description`  
+- `image`  
+- `category`  
+- `state`  
+- `nbe_participant`  
+- `evt_date`  
+- `creation_date`  
+- `update_date`  
 
-title - Titre de l'événement
+### Person  
+- `cin`  
+- `email`  
 
-description - Description détaillée (TextField)
+### Participation  
+- `participation_date`  
 
-image - Image de l'événement (ImageField avec Pillow)
+---
 
-category - Catégorie (Musique, Cinéma, Sport)
+## 🚀 Installation et Démarrage  
 
-state - État de l'événement (booléen, default=False)
+### Prérequis  
+- **Python 3.11** (Requis pour la mise en place du projet)  
+- **Django 4.1** (Requis pour la mise en place du projet)  
 
-nbe_participant - Nombre de participants
+### 1. Environnement Virtuel  
+L'environnement virtuel (`virtualenv`) est utilisé pour installer des versions spécifiques de paquets pour ce projet spécifique, évitant ainsi les conflits.  
+Le nom de l'environnement virtuel doit être **`venv`**.
 
-evt_date - Date de l'événement
+```bash
+# Installer virtualenv (si ce n'est pas déjà fait)
+pip install virtualenv
 
-creation_date - Date de création
-
-update_date - Date de mise à jour
-
-Person
-cin - Carte d'identité nationale (8 caractères, clé primaire)
-
-email - Adresse email (doit se terminer par @esprit.tn)
-
-Participation
-participation_date - Date de participation (valeur par défaut: date système)
-
-🚀 Installation et Démarrage
-Prérequis
-Python 3.11+
-
-Django 4.2
-
-1. Environnement Virtuel
-bash
 # Création de l'environnement virtuel
-python -m venv djangoenv
+virtualenv venv
+
+# Activation (Linux/macOS)
+source venv/bin/activate
 
 # Activation (Windows)
-djangoenv\Scripts\activate
+venv\Scripts\activate
 
-# Vérification de l'activation (vous devriez voir (djangoenv) devant votre prompt)
-(djangoenv) PS C:\5TWIN5\django\GestionDesEvenements>
-2. Installation des Dépendances
-bash
-# Installation de Django
-pip install Django==4.2
+# (Remarque : Pour désactiver l'environnement, utilisez la commande deactivate.)
+```
 
-# Installation de Pillow pour gérer les images
-pip install Pillow
+### 2. Installation de Django  
+Installez la version requise de Django dans l'environnement virtuel activé.
 
-# Vérification de l'installation
-python -m django --version
-3. Configuration du Projet
-bash
-# Migrations de la base de données
-python manage.py makemigrations
-python manage.py migrate
+```bash
+pip install Django==4.1
+```
 
-# Création du superutilisateur
-python manage.py createsuperuser
-4. Lancement du Serveur
-bash
+### 3. Configuration du Projet  
+```bash
+# Création du projet nommé 'Gestion Evenement'
+django-admin startproject Gestion_Evenement
+
+# Création des applications 'Event' et 'Person'
+python manage.py startapp Event
+python manage.py startapp Person
+
+# Migrations de la base de données (Étapes futures)
+# python manage.py makemigrations
+# python manage.py migrate
+
+# Création du superutilisateur (Étapes futures)
+# python manage.py createsuperuser
+```
+
+### 4. Lancement du Serveur  
+Lancez le serveur de développement.
+
+```bash
 python manage.py runserver
-Accédez à l'application : http://127.0.0.1:8000/
+```
 
-👑 Administration Django
-Accès à l'Interface d'Administration
-URL Admin : http://127.0.0.1:8000/admin/
+Accédez à l'application : [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 
-Superutilisateur créé :
+---
 
-Username: admin
+## 👑 Administration Django
+### Accès à l'Interface d'Administration
+- URL Admin : http://127.0.0.1:8000/admin/
 
-Email: admin@gmail.com
+- Superutilisateur créé :
 
-Password: admin123
+  - Username: admin
 
-Fonctionnalités Back-Office Implémentées
+  - Email: admin@gmail.com
+
+  - Password: admin123
+
+### Fonctionnalités Back-Office Implémentées
 🔧 Administration des Personnes
-Recherche par username avec ResearchPerson et search_fields=['username']
+- Recherche par username
 
-Gestion complète des profils
+- Gestion complète des profils
 
 🎯 Administration des Événements
-Affichage personnalisé avec list_display
+- Affichage personnalisé avec list_display
 
-Fonction de comptage des participants
+- Filtres avancés :
 
-Champs en lecture seule : creation_date et update_date
+  - Par titre d'événement
 
-Pagination avec list_per_page = 10
+  - Par nombre de participants ("No participants", "There are participants")
 
-Filtres avancés :
+  - Par date ("Past Events", "Upcoming Events", "Today Events")
 
-Par titre d'événement
+- Actions personnalisées : "Accepter/Refuser" les événements
 
-Par nombre de participants ("No participants", "There are participants")
+- Pagination (10 éléments par page)
 
-Par date ("Past Events", "Upcoming Events", "Today Events")
+- Formulaire organisé avec fieldsets
 
-Actions personnalisées : "Accepter/Refuser" les événements
+- Inline des participations
 
-Formulaire organisé avec fieldsets
+- Auto-complete pour la sélection des organisateurs
 
-Inline des participations avec ParticipationAdmin (TabularInline)
+---
 
-Auto-complete pour la sélection des organisateurs avec autocomplete_fields=['organizer']
-
-📁 Structure du Projet
-text
+## 📁 Structure du Projet  
+```
 GestionDesEvenements/
 ├── doc/                           # Documentation complète
 │   ├── 1_Document.pdf
@@ -157,25 +173,30 @@ GestionDesEvenements/
 ├── db.sqlite3                     # Base de données SQLite
 ├── manage.py                      # Script de gestion Django
 └── README.md                      # Documentation principale
-📚 Documentation
-La documentation détaillée est disponible dans le dossier doc/ :
+```
 
-1_Document.pdf - Présentation générale du projet
+---
 
-2_Etude_de_cas_Generation_de_la_BD.pdf - Génération de la base de données et modèles
+## 📚 Documentation  
+La documentation détaillée est disponible dans le dossier `doc/` :  
+- **1_Document.pdf** - Présentation générale du projet
 
-3_Etude_de_cas_Dashboard_Admin.pdf - Configuration du Back-Office et administration
+- **2_Etude_de_cas_Generation_de_la_BD.pdf** - Génération de la base de données et modèles
 
-1ere_etape_environnement_de_developpement.pdf - Environnement virtuel
+- **3_Etude_de_cas_Dashboard_Admin.pdf** - Configuration du Back-Office et administration
 
-2eme_etape_installation_de_Django.pdf - Installation de Django
+- **1ere_etape_environnement_de_developpement.pdf** - Environnement virtuel
 
-3eme_etape_creation_d_une_application.pdf - Création des applications
+- **2eme_etape_installation_de_Django.pdf** - Installation de Django
 
-🔧 Développement
-Commandes Django utiles :
+- **3eme_etape_creation_d_une_application.pdf** - Création des applications
 
-bash
+---
+
+## 🔧 Développement  
+Commandes Django utiles :  
+
+```bash
 # Créer les migrations
 python manage.py makemigrations Event
 python manage.py makemigrations Person
@@ -191,19 +212,25 @@ python manage.py runserver
 
 # Lancer le serveur sur un port spécifique
 python manage.py runserver 8080
+```
+---
+
 ✅ État du Projet
-✅ Environnement de développement configuré
+- ✅ Environnement de développement configuré
 
-✅ Modèles de données implémentés avec toutes les contraintes
+- ✅ Modèles de données implémentés avec toutes les contraintes
 
-✅ Base de données générée avec nom personnalisé
+- ✅ Base de données générée avec nom personnalisé
 
-✅ Back-Office complet avec toutes les fonctionnalités demandées
+- ✅ Back-Office complet avec toutes les fonctionnalités demandées
 
-✅ Superutilisateur créé et fonctionnel
+- ✅ Superutilisateur créé et fonctionnel
 
-✅ Documentation complète et organisée
+- ✅ Documentation complète et organisée
 
-👥 Auteur
+---
+
+## 👥 Auteur  
 Ahmed Ben Hmida
 
+---
