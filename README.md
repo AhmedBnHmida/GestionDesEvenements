@@ -1,160 +1,209 @@
-# 🎯 GestionEvenement - Application de Gestion d'Événements  
-
+🎯 GestionDesEvenements - Application de Gestion d'Événements
 Une application web Django complète pour la gestion d'événements avec frontoffice et backoffice.
 
----
+📋 Description du Projet
+L'objectif de cet atelier est de développer une application web de gestion des évènements en utilisant le Framework Django pour les deux parties FrontOffice et BackOffice.
 
-## 📋 Description du Projet  
-L'objectif de cet atelier est de développer une application web de **gestion des évènements** en utilisant le Framework Django.
+🏗️ Architecture
+Projet Django : GestionDesEvenements
 
----
+Applications :
 
-## 🏗️ Architecture  
-- **Projet Django** : `Gestion Evenement`  
-- **Applications** :  
-  - `Event`  
-  - `Person`  
+Event - Gestion des événements
 
----
+Person - Gestion des utilisateurs et organisateurs
 
-## 📊 Modèle de Données  
+📊 Modèle de Données
 Ce projet est basé sur le diagramme de classe d'analyse fourni.
 
-### Event  
-- `id`  
-- `title`  
-- `description`  
-- `image`  
-- `category`  
-- `state`  
-- `nbe_participant`  
-- `evt_date`  
-- `creation_date`  
-- `update_date`  
+Event
+id - Identifiant unique
 
-### Person  
-- `cin`  
-- `email`  
-- `User` (Hérite de Person)  
-- `Organizer` (Relation avec Event)  
+title - Titre de l'événement
 
-### Participation  
-- `participation_date`  
+description - Description détaillée (TextField)
 
----
+image - Image de l'événement (ImageField avec Pillow)
 
-## 🚀 Installation et Démarrage  
+category - Catégorie (Musique, Cinéma, Sport)
 
-### Prérequis  
-- **Python 3.11** (Requis pour la mise en place du projet)  
-- **Django 4.1** (Requis pour la mise en place du projet)  
+state - État de l'événement (booléen, default=False)
 
-### 1. Environnement Virtuel  
-L'environnement virtuel (`virtualenv`) est utilisé pour installer des versions spécifiques de paquets pour ce projet spécifique, évitant ainsi les conflits.  
-Le nom de l'environnement virtuel doit être **`venv`**.
+nbe_participant - Nombre de participants
 
-```bash
-# Installer virtualenv (si ce n'est pas déjà fait)
-pip install virtualenv
+evt_date - Date de l'événement
 
+creation_date - Date de création
+
+update_date - Date de mise à jour
+
+Person
+cin - Carte d'identité nationale (8 caractères, clé primaire)
+
+email - Adresse email (doit se terminer par @esprit.tn)
+
+Participation
+participation_date - Date de participation (valeur par défaut: date système)
+
+🚀 Installation et Démarrage
+Prérequis
+Python 3.11+
+
+Django 4.2
+
+1. Environnement Virtuel
+bash
 # Création de l'environnement virtuel
-virtualenv venv
-
-# Activation (Linux/macOS)
-source venv/bin/activate
+python -m venv djangoenv
 
 # Activation (Windows)
-venv\Scripts\activate
+djangoenv\Scripts\activate
 
-# (Remarque : Pour désactiver l'environnement, utilisez la commande deactivate.)
-```
+# Vérification de l'activation (vous devriez voir (djangoenv) devant votre prompt)
+(djangoenv) PS C:\5TWIN5\django\GestionDesEvenements>
+2. Installation des Dépendances
+bash
+# Installation de Django
+pip install Django==4.2
 
-### 2. Installation de Django  
-Installez la version requise de Django dans l'environnement virtuel activé.
+# Installation de Pillow pour gérer les images
+pip install Pillow
 
-```bash
-pip install Django==4.1
-```
+# Vérification de l'installation
+python -m django --version
+3. Configuration du Projet
+bash
+# Migrations de la base de données
+python manage.py makemigrations
+python manage.py migrate
 
-### 3. Configuration du Projet  
-```bash
-# Création du projet nommé 'Gestion Evenement'
-django-admin startproject Gestion_Evenement
-
-# Création des applications 'Event' et 'Person'
-python manage.py startapp Event
-python manage.py startapp Person
-
-# Migrations de la base de données (Étapes futures)
-# python manage.py makemigrations
-# python manage.py migrate
-
-# Création du superutilisateur (Étapes futures)
-# python manage.py createsuperuser
-```
-
-### 4. Lancement du Serveur  
-Lancez le serveur de développement.
-
-```bash
+# Création du superutilisateur
+python manage.py createsuperuser
+4. Lancement du Serveur
+bash
 python manage.py runserver
-```
+Accédez à l'application : http://127.0.0.1:8000/
 
-Accédez à l'application : [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+👑 Administration Django
+Accès à l'Interface d'Administration
+URL Admin : http://127.0.0.1:8000/admin/
 
----
+Superutilisateur créé :
 
-## 📁 Structure du Projet  
-```
-GestionEvenement/
+Username: admin
+
+Email: admin@gmail.com
+
+Password: admin123
+
+Fonctionnalités Back-Office Implémentées
+🔧 Administration des Personnes
+Recherche par username avec ResearchPerson et search_fields=['username']
+
+Gestion complète des profils
+
+🎯 Administration des Événements
+Affichage personnalisé avec list_display
+
+Fonction de comptage des participants
+
+Champs en lecture seule : creation_date et update_date
+
+Pagination avec list_per_page = 10
+
+Filtres avancés :
+
+Par titre d'événement
+
+Par nombre de participants ("No participants", "There are participants")
+
+Par date ("Past Events", "Upcoming Events", "Today Events")
+
+Actions personnalisées : "Accepter/Refuser" les événements
+
+Formulaire organisé avec fieldsets
+
+Inline des participations avec ParticipationAdmin (TabularInline)
+
+Auto-complete pour la sélection des organisateurs avec autocomplete_fields=['organizer']
+
+📁 Structure du Projet
+text
+GestionDesEvenements/
 ├── doc/                           # Documentation complète
-│   ├── 1ere etape environnement de developpement.pdf
-│   ├── 2eme etape Installation de Django.pdf
-│   ├── 3eme etape  création d'une application.pdf
-│   └── Document.pdf
-├── venv/                          # Environnement virtuel (Nom requis)
-├── manage.py                      # Script de gestion du projet Django
-└── Gestion_Evenement/             # Projet Django principal (Nom requis)
-    ├── __init__.py                # Considérez le répertoire comme un package python
-    ├── settings.py                # Configuration du projet
-    ├── urls.py                    # Déclaration des urls du site
-    ├── wsgi.py
-    └── asgi.py
-```
+│   ├── 1_Document.pdf
+│   ├── 2_Etude_de_cas_Generation_de_la_BD.pdf
+│   ├── 3_Etude_de_cas_Dashboard_Admin.pdf
+│   ├── 1ere_etape_environnement_de_developpement.pdf
+│   ├── 2eme_etape_installation_de_Django.pdf
+│   └── 3eme_etape_creation_d_une_application.pdf
+├── djangoenv/                     # Environnement virtuel
+├── Event/                         # Application Event
+│   ├── migrations/
+│   ├── admin.py                   # Configuration admin personnalisée
+│   ├── models.py                  # Modèles Event et Participation
+│   └── ...
+├── Person/                        # Application Person
+│   ├── migrations/
+│   ├── admin.py                   # Administration des personnes
+│   ├── models.py                  # Modèle Person
+│   └── ...
+├── GestionDesEvenements/          # Projet Django principal
+│   ├── settings.py                # Configuration avec nom de BD personnalisé
+│   ├── urls.py                    # Routes URLs
+│   └── ...
+├── images/                        # Dossier pour les images uploadées
+├── 5TWINSDIANGO.db               # Base de données (nom de classe personnalisé)
+├── db.sqlite3                     # Base de données SQLite
+├── manage.py                      # Script de gestion Django
+└── README.md                      # Documentation principale
+📚 Documentation
+La documentation détaillée est disponible dans le dossier doc/ :
 
----
+1_Document.pdf - Présentation générale du projet
 
-## 📚 Documentation  
-La documentation détaillée est disponible dans le dossier `doc/` :  
-- **1ère étape : ENVIRONNEMENT DE DÉVELOPPEMENT: VIRUALENV**  
-  - Installation et activation de l'environnement virtuel.  
-- **2ème étape : Installation de Django**  
-  - Installation du framework et création du projet.  
-- **3ème étape : création d'une application**  
-  - Commande de création et fichiers générés (`models.py`, `views.py`, etc.).  
-- **Document.pdf**  
-  - Étude de cas, énoncé et Diagramme de classe d'analyse.  
+2_Etude_de_cas_Generation_de_la_BD.pdf - Génération de la base de données et modèles
 
----
+3_Etude_de_cas_Dashboard_Admin.pdf - Configuration du Back-Office et administration
 
-## 🔧 Développement  
-Commandes Django utiles :  
+1ere_etape_environnement_de_developpement.pdf - Environnement virtuel
 
-```bash
-# Créer une nouvelle application
-python manage.py startapp <Nom_Application>
+2eme_etape_installation_de_Django.pdf - Installation de Django
+
+3eme_etape_creation_d_une_application.pdf - Création des applications
+
+🔧 Développement
+Commandes Django utiles :
+
+bash
+# Créer les migrations
+python manage.py makemigrations Event
+python manage.py makemigrations Person
+
+# Appliquer les migrations
+python manage.py migrate
+
+# Créer un superutilisateur
+python manage.py createsuperuser
 
 # Lancer le serveur de développement
 python manage.py runserver
 
 # Lancer le serveur sur un port spécifique
 python manage.py runserver 8080
+✅ État du Projet
+✅ Environnement de développement configuré
 
-# Vérifier la version de Django installée
-python -m django-version
-```
+✅ Modèles de données implémentés avec toutes les contraintes
 
----
+✅ Base de données générée avec nom personnalisé
 
-## 👥 Auteur  
+✅ Back-Office complet avec toutes les fonctionnalités demandées
+
+✅ Superutilisateur créé et fonctionnel
+
+✅ Documentation complète et organisée
+
+👥 Auteur
 Ahmed Ben Hmida
+
